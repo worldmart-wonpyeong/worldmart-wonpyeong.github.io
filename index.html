@@ -139,6 +139,22 @@ section.cat{padding-top:26px;display:grid;gap:12px;scroll-margin-top:120px}
 .opts span{font-size:11.5px;background:var(--jade-soft);color:var(--jade);padding:1px 7px;border-radius:5px}
 .badge{font-size:11px;font-weight:700;color:var(--gold);letter-spacing:.04em}
 
+[hidden]{display:none!important}
+.item.has-g{cursor:pointer}
+.item.has-g:hover{border-color:var(--jade)}
+.more{font-size:12px;color:var(--jade);font-weight:700;margin-top:2px}
+.modal{position:fixed;inset:0;z-index:20;background:rgba(10,15,13,.6);display:grid;place-items:end center;padding:16px;padding-bottom:calc(16px + env(safe-area-inset-bottom,0px))}
+.sheet{background:var(--surface);color:var(--ink);border-radius:16px;width:100%;max-width:640px;max-height:88vh;overflow:auto;padding:16px;display:grid;gap:12px}
+@media (min-width:700px){.modal{place-items:center}}
+.m-head{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.m-head h3{margin:0;font-size:17px}
+.x{font:inherit;font-size:16px;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:999px;width:36px;height:36px;cursor:pointer;flex:none}
+.m-main{width:100%;border-radius:10px;display:block}
+.m-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px}
+.flav{display:grid;gap:3px}
+.flav .crop{width:100%;border-radius:8px;background-repeat:no-repeat;background-color:var(--ph)}
+.flav b{font-size:14px}
+.flav span{font-size:12px;color:var(--muted);font-family:"Noto Serif SC",serif}
 .empty{padding:40px 0;text-align:center;color:var(--muted)}
 footer{margin-top:40px;padding-top:18px;border-top:1px solid var(--line);font-size:13px;color:var(--muted);display:grid;gap:4px}
 
@@ -201,12 +217,20 @@ footer{margin-top:40px;padding-top:18px;border-top:1px solid var(--line);font-si
   </footer>
 </div>
 
+<div class="modal" id="modal" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="mTitle">
+    <div class="m-head"><h3 id="mTitle"></h3><button class="x" id="mClose" type="button" aria-label="닫기">✕</button></div>
+    <img class="m-main" id="mMain" alt="">
+    <div class="m-grid" id="mGrid"></div>
+  </div>
+</div>
+
 <script>
 /* ───────── 상품 목록: 여기만 고치면 됩니다 ─────────
    img: 나중에 사진 주소를 넣으면 자리표시 대신 사진이 나옵니다 */
 const CATEGORIES = [
   { id:"dumpling", name:"만두·셴빙", zh:"饺子·馅饼", items:[
-    { name:"희가득 물만두 600g", zh:"禧家德", price:4700, opts:["표고버섯","셀러리","삼선","배추","부추","산차이"], desc:"6종 전 품목 균일가" },
+    { name:"희가득 물만두 600g", zh:"禧家德", price:4700, img:"img/heegadeuk-6.webp", gallery:[{k:"표고버섯",zh:"猪肉香菇",r:[325,235,325,235]},{k:"셀러리",zh:"猪肉芹菜",r:[0,0,305,240]},{k:"삼선",zh:"猪肉三鲜",r:[305,0,320,240]},{k:"배추",zh:"猪肉白菜",r:[610,0,290,215]},{k:"부추",zh:"猪肉韭菜",r:[0,245,330,250]},{k:"산차이",zh:"猪肉酸菜",r:[650,190,250,250]}], opts:["표고버섯","셀러리","삼선","배추","부추","산차이"], desc:"6종 전 품목 균일가" },
     { name:"희가득 부추계란만두", zh:"韭菜鸡蛋", price:6300 },
     { name:"희가득 입쌀만두", zh:"大米饺", price:9000 },
     { name:"미선 부추계란 새우만두", zh:"虾仁饺", price:6500 },
@@ -261,6 +285,8 @@ const CATEGORIES = [
 const won = n => n.toLocaleString("ko-KR") + "원";
 const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 let active = "all";
+let G = [];
+const GW = 900, GH = 507;
 
 function renderChips(){
   const total = CATEGORIES.reduce((a,c)=>a+c.items.length,0);
@@ -273,13 +299,16 @@ function renderChips(){
 function card(it){
   const ph = it.img ? `<img src="${esc(it.img)}" alt="${esc(it.name)}" loading="lazy">` : esc(it.zh || "");
   const opts = it.opts ? `<div class="opts">${it.opts.map(o=>`<span>${esc(o)}</span>`).join("")}</div>` : "";
-  return `<div class="item">
+  const gi = it.gallery ? G.push(it) - 1 : -1;
+  const more = gi >= 0 ? `<span class="more">맛별 사진 보기 ›</span>` : "";
+  return `<div class="item${gi>=0?' has-g':''}"${gi>=0?` data-g="${gi}" role="button" tabindex="0"`:''}>
     <div class="ph" aria-hidden="${it.img?'false':'true'}">${ph}</div>
     <div class="meta">
       ${it.badge?`<span class="badge">${esc(it.badge)}</span>`:""}
       <span class="name">${esc(it.name)}</span>
       ${it.desc?`<span class="desc">${esc(it.desc)}</span>`:""}
       ${opts}
+      ${more}
       <span class="price">${it.price!=null?won(it.price):'<span class="ask">가격은 매장 문의</span>'}</span>
     </div>
   </div>`;
@@ -288,6 +317,7 @@ function card(it){
 function render(){
   const q = document.getElementById("q").value.trim().toLowerCase();
   const out = [];
+  G = [];
   for (const c of CATEGORIES){
     if (active!=="all" && c.id!==active) continue;
     const items = c.items.filter(it => !q ||
@@ -307,6 +337,25 @@ document.getElementById("chips").addEventListener("click", e=>{
   active = b.dataset.id; renderChips(); render();
 });
 document.getElementById("q").addEventListener("input", render);
+
+function openG(it){
+  document.getElementById("mTitle").textContent = it.name + " · " + won(it.price);
+  const m = document.getElementById("mMain"); m.src = it.img; m.alt = it.name + " 6종";
+  document.getElementById("mGrid").innerHTML = it.gallery.map(f => {
+    const [x,y,w,h] = f.r;
+    const bs = `${GW/w*100}% ${GH/h*100}%`;
+    const bp = `${w>=GW?0:x/(GW-w)*100}% ${h>=GH?0:y/(GH-h)*100}%`;
+    return `<div class="flav"><div class="crop" role="img" aria-label="${esc(f.k)}" style="aspect-ratio:${w}/${h};background-image:url('${esc(it.img)}');background-size:${bs};background-position:${bp}"></div><b>${esc(f.k)}</b><span>${esc(f.zh)}</span></div>`;
+  }).join("");
+  document.getElementById("modal").hidden = false;
+  document.getElementById("mClose").focus();
+}
+function closeG(){ document.getElementById("modal").hidden = true; }
+document.getElementById("list").addEventListener("click", e => { const c = e.target.closest(".has-g"); if (c) openG(G[+c.dataset.g]); });
+document.getElementById("list").addEventListener("keydown", e => { const c = e.target.closest(".has-g"); if (c && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); openG(G[+c.dataset.g]); } });
+document.getElementById("mClose").addEventListener("click", closeG);
+document.getElementById("modal").addEventListener("click", e => { if (e.target.id === "modal") closeG(); });
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeG(); });
 
 /* 영업 중 표시 (한국 시간 기준) */
 function updateStatus(){
