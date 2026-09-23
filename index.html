@@ -153,6 +153,7 @@ section.cat{padding-top:26px;display:grid;gap:12px;scroll-margin-top:120px}
 .m-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px}
 .flav{display:grid;gap:3px}
 .flav .crop{width:100%;border-radius:8px;background-repeat:no-repeat;background-color:var(--ph)}
+.spr{height:100%;aspect-ratio:4/5;background-repeat:no-repeat;border-radius:4px}
 .flav b{font-size:14px}
 .flav span{font-size:12px;color:var(--muted);font-family:"Noto Serif SC",serif}
 .empty{padding:40px 0;text-align:center;color:var(--muted)}
@@ -233,13 +234,11 @@ const CATEGORIES = [
     { name:"희가득 물만두 600g", zh:"禧家德", price:4700, img:"img/heegadeuk-6.webp", gallery:[{k:"표고버섯",zh:"猪肉香菇",r:[325,235,325,235]},{k:"셀러리",zh:"猪肉芹菜",r:[0,0,305,240]},{k:"삼선",zh:"猪肉三鲜",r:[305,0,320,240]},{k:"배추",zh:"猪肉白菜",r:[610,0,290,215]},{k:"부추",zh:"猪肉韭菜",r:[0,245,330,250]},{k:"산차이",zh:"猪肉酸菜",r:[650,190,250,250]}], opts:["표고버섯","셀러리","삼선","배추","부추","산차이"], desc:"6종 전 품목 균일가" },
     { name:"희가득 부추계란만두", zh:"韭菜鸡蛋", price:6300, img:"img/buchu-egg.webp", pos:"30% 60%" },
     { name:"형제 입쌀만두", zh:"大米饺", price:9000, desc:"3종 균일가", opts:["양배추","김치","무우"], img:"img/hyeongje-rice.webp", gw:900, gh:269, gallery:[{k:"양배추",zh:"卷心菜",r:[0,0,300,269]},{k:"김치",zh:"泡菜",r:[300,0,300,269]},{k:"무우",zh:"萝卜",r:[600,0,300,269]}] },
-    { name:"미선 부추계란 새우만두", zh:"虾仁饺", price:6500 },
-    { name:"미선 샤오롱바오", zh:"小笼包", price:7000 },
-    { name:"정의 손 훈둔", zh:"馄饨", price:5900 },
-    { name:"정의 손만두 셀러리", zh:"芹菜饺", price:5900 },
-    { name:"정의 손만두 계란부추", zh:"韭菜鸡蛋", price:5900 },
-    { name:"부추계란 셴빙", zh:"馅饼", price:6500 },
-    { name:"배추 셴빙", zh:"小白菜馅饼", price:6500 },
+    { name:"미선 부추계란 새우만두", zh:"虾仁饺", price:6500, img:"img/dumplings-2.webp", gw:840, gh:700, sp:[0,0,280,350] },
+    { name:"미선 샤오롱바오", zh:"小笼包", price:7000, img:"img/dumplings-2.webp", gw:840, gh:700, sp:[280,0,280,350] },
+    { name:"정의 손만두", zh:"情意食品", price:5900, desc:"3종 균일가", opts:["훈둔","셀러리","계란부추"], img:"img/dumplings-2.webp", gw:840, gh:700, sp:[0,350,280,350], gallery:[{k:"훈둔",zh:"馄饨",r:[560,0,280,350]},{k:"셀러리",zh:"猪肉芹菜",r:[0,350,280,350]},{k:"계란부추",zh:"韭菜鸡蛋",r:[280,350,280,350]}] },
+    { name:"부추계란 셴빙", zh:"韭菜鸡蛋馅饼", price:6500, img:"img/dumplings-2.webp", gw:840, gh:700, sp:[560,350,280,350] },
+    { name:"배추 셴빙", zh:"小白菜馅饼", price:6500, badge:"일시 품절" },
   ]},
   { id:"hotpot", name:"훠궈·어묵", zh:"火锅丸子", items:[
     { name:"모듬완자", zh:"八珍玉食", price:null },
@@ -297,7 +296,7 @@ function renderChips(){
 }
 
 function card(it){
-  const ph = it.img ? `<img src="${esc(it.img)}" alt="${esc(it.name)}" loading="lazy" style="object-position:${esc(it.pos||'50% 50%')}">` : esc(it.zh || "");
+  const ph = it.sp ? `<div class="spr" style="${bgCrop(it, it.sp)}"></div>` : it.img ? `<img src="${esc(it.img)}" alt="${esc(it.name)}" loading="lazy" style="object-position:${esc(it.pos||'50% 50%')}">` : esc(it.zh || "");
   const opts = it.opts ? `<div class="opts">${it.opts.map(o=>`<span>${esc(o)}</span>`).join("")}</div>` : "";
   const gi = (it.gallery || it.img) ? G.push(it) - 1 : -1;
   const more = gi >= 0 ? `<span class="more">${it.gallery ? '맛별 사진 보기 ›' : '사진 크게 보기 ›'}</span>` : "";
@@ -338,15 +337,19 @@ document.getElementById("chips").addEventListener("click", e=>{
 });
 document.getElementById("q").addEventListener("input", render);
 
+function bgCrop(it, r){
+  const [x,y,w,h] = r;
+  const GW = it.gw || 900, GH = it.gh || 507;
+  return `background-image:url('${esc(it.img)}');background-size:${GW/w*100}% ${GH/h*100}%;background-position:${w>=GW?0:x/(GW-w)*100}% ${h>=GH?0:y/(GH-h)*100}%`;
+}
 function openG(it){
   document.getElementById("mTitle").textContent = it.name + (it.price != null ? " · " + won(it.price) : "");
-  const m = document.getElementById("mMain"); m.src = it.img; m.alt = it.name;
-  document.getElementById("mGrid").innerHTML = (it.gallery || []).map(f => {
+  const m = document.getElementById("mMain"); m.src = it.img; m.alt = it.name; m.hidden = !!it.sp;
+  const tiles = it.gallery || (it.sp ? [{k:"", zh:"", r:it.sp, big:true}] : []);
+  document.getElementById("mGrid").innerHTML = tiles.map(f => {
     const [x,y,w,h] = f.r;
-    const GW = it.gw || 900, GH = it.gh || 507;
-    const bs = `${GW/w*100}% ${GH/h*100}%`;
-    const bp = `${w>=GW?0:x/(GW-w)*100}% ${h>=GH?0:y/(GH-h)*100}%`;
-    return `<div class="flav"><div class="crop" role="img" aria-label="${esc(f.k)}" style="aspect-ratio:${w}/${h};background-image:url('${esc(it.img)}');background-size:${bs};background-position:${bp}"></div><b>${esc(f.k)}</b><span>${esc(f.zh)}</span></div>`;
+    const lab = f.big ? "" : `<b>${esc(f.k)}</b><span>${esc(f.zh)}</span>`;
+    return `<div class="flav"${f.big ? ' style="grid-column:1/-1"' : ''}><div class="crop" role="img" aria-label="${esc(f.k || it.name)}" style="aspect-ratio:${w}/${h};${bgCrop(it, f.r)}"></div>${lab}</div>`;
   }).join("");
   document.getElementById("modal").hidden = false;
   document.getElementById("mClose").focus();
