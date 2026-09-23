@@ -134,6 +134,7 @@ section.cat{padding-top:26px;display:grid;gap:12px;scroll-margin-top:120px}
 .desc{font-size:12.5px;color:var(--muted);line-height:1.4}
 .price{font-weight:700;color:var(--red);font-variant-numeric:tabular-nums;font-size:16px;margin-top:2px}
 .price small{font-size:12px;font-weight:500;color:var(--muted);margin-left:2px}
+.price .ask{font-size:13px;font-weight:500;color:var(--muted)}
 .opts{display:flex;flex-wrap:wrap;gap:4px;margin-top:3px}
 .opts span{font-size:11.5px;background:var(--jade-soft);color:var(--jade);padding:1px 7px;border-radius:5px}
 .badge{font-size:11px;font-weight:700;color:var(--gold);letter-spacing:.04em}
@@ -195,7 +196,7 @@ footer{margin-top:40px;padding-top:18px;border-top:1px solid var(--line);font-si
   <main id="list"></main>
 
   <footer>
-    <span>가격은 매장 사정에 따라 바뀔 수 있습니다. 재고는 위챗으로 문의해 주세요.</span>
+    <span>가격은 환율과 매장 사정에 따라 바뀔 수 있습니다. 재고는 위챗으로 문의해 주세요.</span>
     <span>월드마트 중국식품 · 원평동 · 위챗 worldmart_hwan</span>
   </footer>
 </div>
@@ -217,42 +218,42 @@ const CATEGORIES = [
     { name:"배추 셴빙", zh:"小白菜馅饼", price:6500 },
   ]},
   { id:"hotpot", name:"훠궈·어묵", zh:"火锅丸子", items:[
-    { name:"모듬완자", zh:"八珍玉食", price:5500 },
-    { name:"위왈", zh:"鱼丸", price:4000, desc:"생선 완자" },
-    { name:"머위왈", zh:"墨鱼丸", price:4000, desc:"오징어 완자" },
-    { name:"룽샤츄", zh:"龙虾球", price:5500 },
-    { name:"위즈볼", zh:"鱼籽宝", price:5300 },
-    { name:"냉동 위두부", zh:"鱼豆腐", price:4400 },
-    { name:"뚱두부", zh:"冻豆腐", price:2000, desc:"언두부" },
-    { name:"삥샤", zh:"冰虾", price:8500, desc:"냉동 새우" },
+    { name:"모듬완자", zh:"八珍玉食", price:null },
+    { name:"위왈", zh:"鱼丸", price:null, desc:"생선 완자" },
+    { name:"머위왈", zh:"墨鱼丸", price:null, desc:"오징어 완자" },
+    { name:"룽샤츄", zh:"龙虾球", price:null },
+    { name:"위즈볼", zh:"鱼籽宝", price:null },
+    { name:"냉동 위두부", zh:"鱼豆腐", price:null },
+    { name:"뚱두부", zh:"冻豆腐", price:null, desc:"언두부" },
+    { name:"삥샤", zh:"冰虾", price:null, desc:"냉동 새우" },
   ]},
   { id:"meat", name:"훠궈 고기", zh:"肉片", items:[
-    { name:"소고기 슬라이스", zh:"肥牛肉片", price:10000 },
-    { name:"양고기 롤", zh:"羔羊肉卷", price:12500 },
+    { name:"소고기 슬라이스", zh:"肥牛肉片", price:null },
+    { name:"양고기 롤", zh:"羔羊肉卷", price:null },
   ]},
   { id:"yanbian", name:"냉면·연변 간식", zh:"延边特产", items:[
-    { name:"연길냉면 10인분", zh:"延吉冷面", price:6000, opts:["옥수수","메밀"] },
-    { name:"연길냉면 5인분", zh:"延吉冷面", price:3300 },
-    { name:"연변특색 냉면", zh:"延边特色", price:3300 },
-    { name:"연변찹쌀 순대", zh:"糯米肠", price:6500 },
-    { name:"옥수수 5개", zh:"玉米", price:5000 },
-    { name:"낸뚜보", zh:"粘豆包", price:5900 },
-    { name:"탕웬", zh:"汤圆", price:5500, opts:["오인","흑깨"] },
+    { name:"연길냉면 10인분", zh:"延吉冷面", price:null, opts:["옥수수","메밀"] },
+    { name:"연길냉면 5인분", zh:"延吉冷面", price:null },
+    { name:"연변특색 냉면", zh:"延边特色", price:null },
+    { name:"연변찹쌀 순대", zh:"糯米肠", price:null },
+    { name:"옥수수 5개", zh:"玉米", price:null },
+    { name:"낸뚜보", zh:"粘豆包", price:null },
+    { name:"탕웬", zh:"汤圆", price:null, opts:["오인","흑깨"] },
   ]},
   { id:"mooncake", name:"월병", zh:"月饼", note:"추석 시즌 상품", items:[
-    { name:"또샹춘 북경식 월병", zh:"稻香村", price:4500, badge:"추석" },
-    { name:"오인·헤이즐넛 월병", zh:"五仁榛子", price:4500, badge:"추석" },
-    { name:"오인·흑깨 월병", zh:"五仁黑芝麻", price:4500, badge:"추석" },
-    { name:"대단원 월병 (오인)", zh:"大团圆", price:5000, badge:"추석" },
-    { name:"수빙", zh:"酥饼", price:3700 },
+    { name:"또샹춘 북경식 월병", zh:"稻香村", price:null, badge:"추석" },
+    { name:"오인·헤이즐넛 월병", zh:"五仁榛子", price:null, badge:"추석" },
+    { name:"오인·흑깨 월병", zh:"五仁黑芝麻", price:null, badge:"추석" },
+    { name:"대단원 월병 (오인)", zh:"大团圆", price:null, badge:"추석" },
+    { name:"수빙", zh:"酥饼", price:null },
   ]},
   { id:"rice", name:"쌀", zh:"大米", items:[
-    { name:"신동진쌀 2kg", zh:"新东进", price:12800 },
-    { name:"신동진쌀 4kg", zh:"新东进", price:24000 },
-    { name:"신동진쌀 10kg", zh:"新东进", price:41500 },
-    { name:"베트남쌀 10kg", zh:"越南米", price:35000 },
-    { name:"칼로스 미국쌀", zh:"加州米", price:31000 },
-    { name:"바스마티쌀", zh:"印度香米", price:15000 },
+    { name:"신동진쌀 2kg", zh:"新东进", price:null },
+    { name:"신동진쌀 4kg", zh:"新东进", price:null },
+    { name:"신동진쌀 10kg", zh:"新东进", price:null },
+    { name:"베트남쌀 10kg", zh:"越南米", price:null },
+    { name:"칼로스 미국쌀", zh:"加州米", price:null },
+    { name:"바스마티쌀", zh:"印度香米", price:null },
   ]},
 ];
 /* ─────────────────────────────────────────── */
@@ -279,7 +280,7 @@ function card(it){
       <span class="name">${esc(it.name)}</span>
       ${it.desc?`<span class="desc">${esc(it.desc)}</span>`:""}
       ${opts}
-      <span class="price">${won(it.price)}</span>
+      <span class="price">${it.price!=null?won(it.price):'<span class="ask">가격은 매장 문의</span>'}</span>
     </div>
   </div>`;
 }
