@@ -119,6 +119,8 @@ section.cat{padding-top:26px;display:grid;gap:12px;scroll-margin-top:120px}
 .cat-head .note{font-size:13px;color:var(--muted);flex-basis:100%}
 
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px}
+.grid .sub{grid-column:1/-1;margin:10px 0 0;font-size:15px;font-weight:700;color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:4px}
+.grid .sub:first-child{margin-top:0}
 .item{
   background:var(--surface);border:1px solid var(--line);border-radius:12px;
   display:grid;grid-template-columns:72px 1fr;gap:12px;padding:10px;align-items:center;
@@ -240,19 +242,17 @@ const CATEGORIES = [
     { name:"부추계란 셴빙", zh:"韭菜鸡蛋馅饼", price:6500, img:"img/dumplings-2.webp", gw:840, gh:700, sp:[560,350,280,350] },
     { name:"배추 셴빙", zh:"小白菜馅饼", price:6500, badge:"일시 품절" },
   ]},
-  { id:"hotpot", name:"훠궈·어묵", zh:"火锅丸子", items:[
-    { name:"모듬완자", zh:"八珍玉食", price:null },
-    { name:"위왈", zh:"鱼丸", price:null, desc:"생선 완자" },
-    { name:"머위왈", zh:"墨鱼丸", price:null, desc:"오징어 완자" },
-    { name:"룽샤츄", zh:"龙虾球", price:null },
-    { name:"위즈볼", zh:"鱼籽宝", price:null },
-    { name:"냉동 위두부", zh:"鱼豆腐", price:null },
-    { name:"뚱두부", zh:"冻豆腐", price:null, desc:"언두부" },
-    { name:"삥샤", zh:"冰虾", price:null, desc:"냉동 새우" },
-  ]},
-  { id:"meat", name:"훠궈 고기", zh:"肉片", items:[
-    { name:"소고기 슬라이스", zh:"肥牛肉片", price:null },
-    { name:"양고기 롤", zh:"羔羊肉卷", price:null },
+  { id:"hotpot", name:"훠궈", zh:"火锅", items:[
+    { g:"고기", name:"소고기 슬라이스", zh:"肥牛肉片", price:null },
+    { g:"고기", name:"양고기 롤", zh:"羔羊肉卷", price:null },
+    { g:"완자·어묵", name:"모듬완자", zh:"八珍玉食", price:null },
+    { g:"완자·어묵", name:"위왈", zh:"鱼丸", price:null, desc:"생선 완자" },
+    { g:"완자·어묵", name:"머위왈", zh:"墨鱼丸", price:null, desc:"오징어 완자" },
+    { g:"완자·어묵", name:"룽샤츄", zh:"龙虾球", price:null },
+    { g:"완자·어묵", name:"위즈볼", zh:"鱼籽宝", price:null },
+    { g:"완자·어묵", name:"냉동 위두부", zh:"鱼豆腐", price:null },
+    { g:"두부·새우", name:"뚱두부", zh:"冻豆腐", price:null, desc:"언두부" },
+    { g:"두부·새우", name:"삥샤", zh:"冰虾", price:null, desc:"냉동 새우" },
   ]},
   { id:"yanbian", name:"냉면·연변 간식", zh:"延边特产", items:[
     { name:"연길냉면 10인분", zh:"延吉冷面", price:null, opts:["옥수수","메밀"] },
@@ -320,12 +320,12 @@ function render(){
   for (const c of CATEGORIES){
     if (active!=="all" && c.id!==active) continue;
     const items = c.items.filter(it => !q ||
-      [it.name,it.zh,it.desc,(it.opts||[]).join(" "),c.name].join(" ").toLowerCase().includes(q));
+      [it.name,it.zh,it.desc,it.g,(it.opts||[]).join(" "),c.name].join(" ").toLowerCase().includes(q));
     if (!items.length) continue;
     out.push(`<section class="cat" id="${c.id}">
       <div class="cat-head"><h2>${esc(c.name)}</h2><span class="zh">${esc(c.zh)}</span>
       ${c.note?`<span class="note">${esc(c.note)}</span>`:""}</div>
-      <div class="grid">${items.map(card).join("")}</div></section>`);
+      <div class="grid">${items.map((it,i)=>(it.g && it.g!==(items[i-1]||{}).g ? `<h3 class="sub">${esc(it.g)}</h3>` : "")+card(it)).join("")}</div></section>`);
   }
   document.getElementById("list").innerHTML = out.length ? out.join("")
     : `<p class="empty">"${esc(q)}" 상품을 찾지 못했습니다.<br>위챗으로 문의해 주세요.</p>`;
