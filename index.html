@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="월드마트 중국식품 원평동 - 중국·연변 식품, 냉동 만두, 훠궈 재료, 월병, 수입 쌀. 영업시간 평일 09:30-22:00, 주말 09:00-22:00. 전화 010-3036-9045">
+<meta name="description" content="월드마트 중국식품 원평동 - 중국·연변 식품, 냉동 만두, 훠궈 재료, 월병, 수입 쌀. 영업시간 평일 09:30-22:00, 주말 09:00-22:00. 위챗 worldmart_hwan">
 <title>월드마트 중국식품</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -174,11 +174,10 @@ footer{margin-top:40px;padding-top:18px;border-top:1px solid var(--line);font-si
         </dl>
       </div>
       <div>
-        <span class="label">전화 문의</span>
-        <span class="phone" id="phone">010-3036-9045</span>
+        <span class="label">위챗 문의 · 微信</span>
+        <span class="phone" id="phone">worldmart_hwan</span>
         <div class="actions">
-          <a class="btn primary" href="tel:01030369045">전화 걸기</a>
-          <button class="btn" id="copyPhone" type="button">번호 복사</button>
+          <button class="btn primary" id="copyPhone" type="button">아이디 복사</button>
           <a class="btn" href="https://map.naver.com/p/search/%EC%9B%94%EB%93%9C%EB%A7%88%ED%8A%B8%20%EC%A4%91%EA%B5%AD%EC%8B%9D%ED%92%88%20%EC%9B%90%ED%8F%89%EB%8F%99" target="_blank" rel="noopener">네이버 지도</a>
         </div>
       </div>
@@ -196,8 +195,8 @@ footer{margin-top:40px;padding-top:18px;border-top:1px solid var(--line);font-si
   <main id="list"></main>
 
   <footer>
-    <span>가격은 매장 사정에 따라 바뀔 수 있습니다. 재고는 전화로 확인해 주세요.</span>
-    <span>월드마트 중국식품 · 원평동 · 010-3036-9045</span>
+    <span>가격은 매장 사정에 따라 바뀔 수 있습니다. 재고는 위챗으로 문의해 주세요.</span>
+    <span>월드마트 중국식품 · 원평동 · 위챗 worldmart_hwan</span>
   </footer>
 </div>
 
@@ -299,7 +298,7 @@ function render(){
       <div class="grid">${items.map(card).join("")}</div></section>`);
   }
   document.getElementById("list").innerHTML = out.length ? out.join("")
-    : `<p class="empty">"${esc(q)}" 상품을 찾지 못했습니다.<br>매장에 전화로 문의해 주세요.</p>`;
+    : `<p class="empty">"${esc(q)}" 상품을 찾지 못했습니다.<br>위챗으로 문의해 주세요.</p>`;
 }
 
 document.getElementById("chips").addEventListener("click", e=>{
@@ -324,11 +323,11 @@ function toast(msg){
   document.body.appendChild(t); setTimeout(()=>t.remove(),1800);
 }
 document.getElementById("copyPhone").addEventListener("click", ()=>{
-  const num = "010-3036-9045";
-  navigator.clipboard?.writeText(num).then(()=>toast("번호를 복사했습니다"), ()=>{
+  const num = "worldmart_hwan";
+  navigator.clipboard?.writeText(num).then(()=>toast("위챗 아이디를 복사했습니다"), ()=>{
     const r=document.createRange(); r.selectNodeContents(document.getElementById("phone"));
-    const s=getSelection(); s.removeAllRanges(); s.addRange(r); toast("번호를 길게 눌러 복사하세요");
-  }) ?? toast("번호를 길게 눌러 복사하세요");
+    const s=getSelection(); s.removeAllRanges(); s.addRange(r); toast("아이디를 길게 눌러 복사하세요");
+  }) ?? toast("아이디를 길게 눌러 복사하세요");
 });
 
 renderChips(); render(); updateStatus(); setInterval(updateStatus,60000);
