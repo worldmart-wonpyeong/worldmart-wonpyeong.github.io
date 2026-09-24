@@ -263,12 +263,15 @@ const CATEGORIES = [
     { name:"낸뚜보", zh:"粘豆包", price:null, img:"img/frozen-9.webp", gw:1320, gh:660, sp:[264,330,264,330] },
     { name:"탕웬", zh:"汤圆", price:null, opts:["오인","흑깨"], img:"img/frozen-9.webp", gw:1320, gh:660, sp:[792,330,264,330], gallery:[{k:"오인",zh:"五仁",r:[792,330,264,330]},{k:"흑깨",zh:"黑芝麻",r:[528,330,264,330]}] },
   ]},
-  { id:"mooncake", name:"월병", zh:"月饼", note:"추석 시즌 상품", items:[
-    { name:"또샹춘 북경식 월병", zh:"稻香村", price:null, badge:"추석" },
-    { name:"오인·헤이즐넛 월병", zh:"五仁榛子", price:null, badge:"추석" },
-    { name:"오인·흑깨 월병", zh:"五仁黑芝麻", price:null, badge:"추석" },
-    { name:"대단원 월병 (오인)", zh:"大团圆", price:null, badge:"추석" },
-    { name:"수빙", zh:"酥饼", price:null },
+  { id:"mooncake", name:"월병·수빙", zh:"月饼·酥饼", note:"추석 시즌 상품", items:[
+    { name:"또샹춘 월병", zh:"稻香村", price:null, badge:"추석", opts:["팥","장미","흑깨","산사"], img:"img/moon-13.webp", gw:1320, gh:990, sp:[0,0,264,330], gallery:[{k:"팥",zh:"红豆",r:[0,0,264,330]},{k:"장미",zh:"玫瑰",r:[264,0,264,330]},{k:"흑깨",zh:"黑芝麻",r:[528,0,264,330]},{k:"산사",zh:"山楂",r:[792,0,264,330]}] },
+    { name:"장백산 월병", zh:"长白山百草园", price:null, badge:"추석", opts:["헤이즐넛","오인"], img:"img/moon-13.webp", gw:1320, gh:990, sp:[1056,0,264,330], gallery:[{k:"헤이즐넛",zh:"大榛子",r:[1056,0,264,330]},{k:"오인",zh:"五仁",r:[0,330,264,330]}] },
+    { name:"워예 (연길) 월병", zh:"伍仁·黑芝麻", price:null, badge:"추석", opts:["오인","흑깨"], img:"img/moon-13.webp", gw:1320, gh:990, sp:[264,330,264,330], gallery:[{k:"오인",zh:"伍仁",r:[264,330,264,330]},{k:"흑깨",zh:"黑芝麻",r:[528,330,264,330]}] },
+    { name:"대단원 월병", zh:"大团圆", price:null, badge:"추석", desc:"오인·흑깨·구기자·잣", img:"img/moon-13.webp", gw:1320, gh:990, sp:[792,330,264,330] },
+    { name:"경식월병", zh:"京式月饼", price:null, badge:"추석", img:"img/moon-13.webp", gw:1320, gh:990, sp:[1056,330,264,330] },
+    { name:"수빙 오인맛", zh:"大酥饼 五仁味", price:null, img:"img/moon-13.webp", gw:1320, gh:990, sp:[0,660,264,330] },
+    { name:"수빙 잡곡맛", zh:"大酥饼 粗粮味", price:null, img:"img/moon-13.webp", gw:1320, gh:990, sp:[264,660,264,330] },
+    { name:"수빙 오리지널 (원맛)", zh:"大酥饼 原味", price:null, img:"img/moon-13.webp", gw:1320, gh:990, sp:[528,660,264,330] },
   ]},
   { id:"rice", name:"쌀", zh:"大米", items:[
     { name:"신동진쌀 2kg", zh:"新东进", price:null },
