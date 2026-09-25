@@ -51,6 +51,8 @@ body{
 
 /* Header */
 .notice{margin:0;color:var(--red);font-weight:700;font-size:16px;line-height:1.45;border:1.5px solid var(--red);border-radius:10px;padding:10px 14px;text-align:center;text-wrap:balance}
+.notice p{margin:0}
+.notice p+p{margin-top:6px;padding-top:6px;border-top:1px dashed var(--red)}
 header.store{padding-block:28px 20px;display:grid;gap:14px}
 .brand{display:flex;align-items:flex-end;gap:12px;flex-wrap:wrap}
 .brand h1{
@@ -178,7 +180,11 @@ footer{margin-top:40px;padding-top:18px;border-top:1px solid var(--line);font-si
 
 <div class="wrap">
   <header class="store">
-    <p class="notice">상품 사진을 누르면 맛·종류별로 더 많은 상품을 볼 수 있어요.</p>
+    <div class="notice">
+      <p>상품 사진을 누르면 맛·종류별로 더 많은 상품을 볼 수 있어요.</p>
+      <p>사장 부재로 인해 10월 9일부터 11월 25일까지 포인트 적립은 가능하나, 포인트 사용은 불가능합니다.</p>
+      <p>매장과 홈페이지의 내용이 상이할 수 있으니 고려해 주시기 바랍니다.</p>
+    </div>
     <div class="brand">
       <h1><span class="w">월드</span>마트</h1>
       <span class="sub">중국식품 · 원평동</span>
