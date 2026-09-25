@@ -50,6 +50,7 @@ body{
 .wrap{max-width:760px;margin:0 auto}
 
 /* Header */
+.notice{margin:0;color:var(--red);font-weight:700;font-size:16px;line-height:1.45;border:1.5px solid var(--red);border-radius:10px;padding:10px 14px;text-align:center;text-wrap:balance}
 header.store{padding-block:28px 20px;display:grid;gap:14px}
 .brand{display:flex;align-items:flex-end;gap:12px;flex-wrap:wrap}
 .brand h1{
@@ -177,6 +178,7 @@ footer{margin-top:40px;padding-top:18px;border-top:1px solid var(--line);font-si
 
 <div class="wrap">
   <header class="store">
+    <p class="notice">상품 사진을 누르면 맛·종류별로 더 많은 상품을 볼 수 있어요.</p>
     <div class="brand">
       <h1><span class="w">월드</span>마트</h1>
       <span class="sub">중국식품 · 원평동</span>
@@ -310,9 +312,9 @@ const CATEGORIES = [
     { g:"누룽지", name:"입쌀 누룽지", zh:"延吉 大米锅巴", price:null, img:"img/snack-8.webp", gw:1320, gh:660, sp:[528,0,264,330] },
     { g:"누룽지", name:"누룽지 곽 (감자)", zh:"延吉 锅巴", price:null, img:"img/snack-8.webp", gw:1320, gh:660, sp:[792,0,264,330] },
     { g:"누룽지", name:"누룽지 곽 (고구마)", zh:"延吉 锅巴", price:null, img:"img/snack-8.webp", gw:1320, gh:660, sp:[1056,0,264,330] },
-    { g:"누룽지", name:"카츠슝 찹쌀 누룽지", zh:"大吃兄 糯米锅巴", price:null, desc:"260g: 오리지널·매운맛 / 168g: 산초·바비큐·가재·노른자", opts:["오리지널","매운맛","산초맛","바비큐맛","가재맛","노른자맛"], img:"img/guoba-11.webp", gw:1800, gh:1350, sp:[0,0,360,450], gallery:[{k:"오리지널 260g",zh:"经典原味",r:[0,0,360,450]},{k:"매운맛 260g",zh:"香辣味",r:[360,0,360,450]},{k:"산초맛 168g",zh:"藤椒风味",r:[720,0,360,450]},{k:"바비큐맛 168g",zh:"午夜烧烤风味",r:[1080,0,360,450]},{k:"가재맛 168g",zh:"小龙虾风味",r:[1440,0,360,450]},{k:"노른자맛 168g",zh:"蛋黄锅巴",r:[0,450,360,450]}] },
-    { g:"누룽지", name:"카치 콩향 누룽지", zh:"卡奇 豆香锅巴", price:null, opts:["매운맛","바비큐맛","달콤한맛"], img:"img/guoba-11.webp", gw:1800, gh:1350, sp:[360,450,360,450], gallery:[{k:"매운맛",zh:"香辣味",r:[360,450,360,450]},{k:"바비큐맛",zh:"烧烤味",r:[720,450,360,450]},{k:"달콤한맛",zh:"",r:[1080,450,360,450]}] },
-    { g:"누룽지", name:"자위안 누룽지 마라맛 102g", zh:"家缘 锅巴脆 麻辣味", price:null, img:"img/guoba-11.webp", gw:1800, gh:1350, sp:[1440,450,360,450] },
+    { g:"누룽지", name:"카츠슝(대치웅) 궈바", zh:"大吃兄 糯米锅巴", price:null, desc:"260g: 오리지널·매운맛 / 168g: 산초·바비큐·가재·노른자", opts:["오리지널","매운맛","산초맛","바비큐맛","가재맛","노른자맛"], img:"img/guoba-11.webp", gw:1800, gh:1350, sp:[0,0,360,450], gallery:[{k:"오리지널 260g",zh:"经典原味",r:[0,0,360,450]},{k:"매운맛 260g",zh:"香辣味",r:[360,0,360,450]},{k:"산초맛 168g",zh:"藤椒风味",r:[720,0,360,450]},{k:"바비큐맛 168g",zh:"午夜烧烤风味",r:[1080,0,360,450]},{k:"가재맛 168g",zh:"小龙虾风味",r:[1440,0,360,450]},{k:"노른자맛 168g",zh:"蛋黄锅巴",r:[0,450,360,450]}] },
+    { g:"누룽지", name:"카치 궈바", zh:"卡奇 豆香锅巴", price:null, opts:["매운맛","바비큐맛","달콤한맛"], img:"img/guoba-11.webp", gw:1800, gh:1350, sp:[360,450,360,450], gallery:[{k:"매운맛",zh:"香辣味",r:[360,450,360,450]},{k:"바비큐맛",zh:"烧烤味",r:[720,450,360,450]},{k:"달콤한맛",zh:"",r:[1080,450,360,450]}] },
+    { g:"누룽지", name:"가원 궈바 마라맛", zh:"家缘 锅巴脆 麻辣味", price:null, img:"img/guoba-11.webp", gw:1800, gh:1350, sp:[1440,450,360,450] },
     { g:"누룽지", name:"춘강월 수제 마라 누룽지", zh:"春江月 手工麻辣锅巴", price:null, img:"img/guoba-11.webp", gw:1800, gh:1350, sp:[0,900,360,450] },
     { g:"짼빙", name:"오량전병", zh:"五粮煎饼", price:null, img:"img/snack-8.webp", gw:1320, gh:660, sp:[0,330,264,330] },
     { g:"짼빙", name:"좁쌀전병", zh:"小米煎饼", price:null, img:"img/snack-8.webp", gw:1320, gh:660, sp:[264,330,264,330] },
