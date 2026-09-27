@@ -178,6 +178,9 @@ footer{margin-top:40px;padding-top:18px;border-top:1px solid var(--line);font-si
 .lang button{font:inherit;font-size:14px;font-weight:700;border:0;background:var(--surface);color:var(--ink);padding:6px 14px;cursor:pointer}
 .lang button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
 html[lang="zh-Hans"] body{font-family:"PingFang SC","Microsoft YaHei","Noto Sans SC","Noto Sans KR",sans-serif}
+.countries .chip{font-weight:700;font-size:15px;padding:7px 15px}
+.countries .chip[aria-pressed="true"]{background:var(--red);border-color:var(--red);color:#fff}
+.cnote{margin:18px 0 0;padding:10px 14px;border:1.5px solid var(--red);border-radius:10px;color:var(--red);font-weight:700;text-align:center}
 </style>
 </head>
 <body>
@@ -222,6 +225,7 @@ html[lang="zh-Hans"] body{font-family:"PingFang SC","Microsoft YaHei","Noto Sans
       <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
       <input id="q" type="search" placeholder="상품 검색 (예: 만두, 월병, 쌀)" autocomplete="off">
     </label>
+    <div class="chips countries" id="countries" role="toolbar" aria-label="나라"></div>
     <div class="chips" id="chips" role="toolbar" aria-label="카테고리"></div>
   </div>
 
@@ -427,10 +431,23 @@ const CATEGORIES = [
 const won = n => n.toLocaleString("ko-KR") + "원";
 const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 let active = "all";
+/* ───────── 나라(1단 버튼) ─────────
+   카테고리에 country:"vn" 처럼 적으면 그 나라 아래에 나옵니다. 안 적으면 중국(cn)입니다. */
+const COUNTRIES = [
+  { id:"cn",  name:"중국", zh:"中国" },
+  { id:"vn",  name:"베트남·캄보디아", zh:"越南·柬埔寨" },
+  { id:"sa",  name:"인도·파키스탄·네팔", zh:"印度·巴基斯坦·尼泊尔" },
+  { id:"kr",  name:"한국", zh:"韩国" },
+  { id:"alc", name:"주류", zh:"酒类", note:"19세 미만 청소년에게는 주류를 판매하지 않습니다." },
+];
+let country = "cn";
+const cOf = c => c.country || "cn";
 let L = "ko";
 try{ const sl=localStorage.getItem("wm_lang"); if(sl==="zh"||sl==="ko") L=sl; else if(/^zh/i.test(navigator.language||"")) L="zh"; }catch(e){ if(/^zh/i.test(navigator.language||"")) L="zh"; }
 /* 중국어(간체) 번역: 한국어 → 中文 */
-const ZH = {"상품 사진을 누르면 맛·종류별로 더 많은 상품을 볼 수 있어요.":"点击商品图片，可以查看更多口味和种类。",
+const ZH = {"상품을 준비 중이에요. 위챗으로 문의해 주세요.":"商品准备中，请通过微信咨询。",
+  "19세 미만 청소년에게는 주류를 판매하지 않습니다.":"不向未满19岁的青少年出售酒类。",
+  "상품 사진을 누르면 맛·종류별로 더 많은 상품을 볼 수 있어요.":"点击商品图片，可以查看更多口味和种类。",
   "사장 부재로 인해 10월 9일부터 11월 25일까지 포인트 적립은 가능하나, 포인트 사용은 불가능합니다.":"因店主不在，10月9日至11月25日期间可以积分，但不能使用积分。",
   "매장과 홈페이지의 내용이 상이할 수 있으니 고려해 주시기 바랍니다.":"网站内容可能与店内实际情况不同，敬请谅解。",
   "중국식품 · 원평동":"中国食品 · 院坪洞",
@@ -572,17 +589,26 @@ function applyStatic(){
   const qi=document.getElementById("q"); if(qi.dataset.ko==null) qi.dataset.ko=qi.placeholder; qi.placeholder=tr(qi.dataset.ko);
   document.querySelectorAll(".lang button").forEach(b=>b.setAttribute("aria-pressed", String(b.dataset.lang===L)));
 }
-function setLang(l){ L=l; try{ localStorage.setItem("wm_lang", l); }catch(e){} applyStatic(); applyStatic(); renderChips(); render(); updateStatus(); }
+function setLang(l){ L=l; try{ localStorage.setItem("wm_lang", l); }catch(e){} applyStatic(); renderCountries(); renderChips(); render(); updateStatus(); }
 document.addEventListener("click", e=>{ const b=e.target.closest(".lang button"); if(b) setLang(b.dataset.lang); });
 let G = [];
 const GW = 900, GH = 507;
 
+function renderCountries(){
+  document.getElementById("countries").innerHTML = COUNTRIES.map(k=>{
+    const n = CATEGORIES.filter(c=>cOf(c)===k.id).reduce((a,c)=>a+c.items.length,0);
+    return `<button class="chip" type="button" data-c="${k.id}" aria-pressed="${k.id===country}">${esc(L==="zh"?k.zh:k.name)}<span class="n">${n}</span></button>`;
+  }).join("");
+}
+
 function renderChips(){
-  const total = CATEGORIES.reduce((a,c)=>a+c.items.length,0);
-  const all = [{id:"all",name:tr("전체"),n:total}, ...CATEGORIES.map(c=>({id:c.id,name:L==="zh"?(c.zh||c.name):c.name,n:c.items.length}))];
+  const CS = CATEGORIES.filter(c=>cOf(c)===country);
+  const total = CS.reduce((a,c)=>a+c.items.length,0);
+  const all = [{id:"all",name:tr("전체"),n:total}, ...CS.map(c=>({id:c.id,name:L==="zh"?(c.zh||c.name):c.name,n:c.items.length}))];
   document.getElementById("chips").innerHTML = all.map(c =>
     `<button class="chip" type="button" data-id="${c.id}" aria-pressed="${c.id===active}">${esc(c.name)}<span class="n">${c.n}</span></button>`
   ).join("");
+  document.getElementById("chips").hidden = !CS.length;
 }
 
 function card(it){
@@ -608,7 +634,8 @@ function render(){
   const out = [];
   G = [];
   for (const c of CATEGORIES){
-    if (active!=="all" && c.id!==active) continue;
+    if (!q && cOf(c)!==country) continue;
+    if (!q && active!=="all" && c.id!==active) continue;
     const items = c.items.filter(it => !q ||
       [it.name,it.zh,it.desc,it.g,(it.opts||[]).join(" "),c.name,c.zh,tr(it.g),tr(it.desc)].join(" ").toLowerCase().includes(q));
     if (!items.length) continue;
@@ -617,13 +644,21 @@ function render(){
       ${c.note?`<span class="note">${esc(tr(c.note))}</span>`:""}</div>
       <div class="grid">${items.map((it,i)=>(it.g && it.g!==(items[i-1]||{}).g ? `<h3 class="sub">${esc(tr(it.g))}</h3>` : "")+card(it)).join("")}</div></section>`);
   }
-  document.getElementById("list").innerHTML = out.length ? out.join("")
+  const K = COUNTRIES.find(k=>k.id===country);
+  const cnote = (!q && K && K.note) ? `<p class="cnote">${esc(tr(K.note))}</p>` : "";
+  if (!q && !out.length) out.push(`<p class="empty">${esc(tr("상품을 준비 중이에요. 위챗으로 문의해 주세요."))}</p>`);
+  document.getElementById("list").innerHTML = out.length ? cnote + out.join("")
     : (L==="zh" ? `<p class="empty">没有找到“${esc(q)}”相关商品。<br>请通过微信咨询。</p>` : `<p class="empty">"${esc(q)}" 상품을 찾지 못했습니다.<br>위챗으로 문의해 주세요.</p>`);
 }
 
 document.getElementById("chips").addEventListener("click", e=>{
   const b = e.target.closest(".chip"); if(!b) return;
   active = b.dataset.id; renderChips(); render();
+});
+document.getElementById("countries").addEventListener("click", e=>{
+  const b = e.target.closest(".chip"); if(!b) return;
+  country = b.dataset.c; active = "all"; document.getElementById("q").value = "";
+  renderCountries(); renderChips(); render();
 });
 document.getElementById("q").addEventListener("input", render);
 
@@ -674,7 +709,7 @@ document.getElementById("copyPhone").addEventListener("click", ()=>{
   }) ?? toast(tr("아이디를 길게 눌러 복사하세요"));
 });
 
-renderChips(); render(); updateStatus(); setInterval(updateStatus,60000);
+applyStatic(); renderCountries(); renderChips(); render(); updateStatus(); setInterval(updateStatus,60000);
 </script>
 <!-- 네이버 애널리틱스 (방문자 통계) -->
 <script type="text/javascript" src="https://wcs.pstatic.net/wcslog.js"></script>
