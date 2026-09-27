@@ -174,6 +174,10 @@ footer{margin-top:40px;padding-top:18px;border-top:1px solid var(--line);font-si
   .grid{grid-template-columns:1fr}
 }
 @media (prefers-reduced-motion:no-preference){ html{scroll-behavior:smooth} }
+.lang{margin-left:auto;align-self:center;display:inline-flex;border:1.5px solid var(--ink);border-radius:999px;overflow:hidden}
+.lang button{font:inherit;font-size:14px;font-weight:700;border:0;background:var(--surface);color:var(--ink);padding:6px 14px;cursor:pointer}
+.lang button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+html[lang="zh-Hans"] body{font-family:"PingFang SC","Microsoft YaHei","Noto Sans SC","Noto Sans KR",sans-serif}
 </style>
 </head>
 <body>
@@ -189,6 +193,7 @@ footer{margin-top:40px;padding-top:18px;border-top:1px solid var(--line);font-si
       <h1><span class="w">월드</span>마트</h1>
       <span class="sub">중국식품 · 원평동</span>
       <span class="seal">世界超市</span>
+      <div class="lang" role="group" aria-label="언어 · 语言"><button type="button" data-lang="ko">한국어</button><button type="button" data-lang="zh">中文</button></div>
     </div>
     <p class="tagline">중국식품과 동남아 식품을 주로 팔고 있는 매장입니다.</p>
 
@@ -265,7 +270,7 @@ const CATEGORIES = [
     { g:"하이치왕", name:"하이치왕 훠궈 베이스 맑은탕 180g", zh:"海琦王 火锅底料 清汤", price:null, img:"img/hotpot2-12.webp", gw:1800, gh:1350, sp:[360,900,360,450] },
     { g:"고기", name:"소고기 샤브샤브", zh:"肥牛肉片", price:null, img:"img/hotpot-10.webp", gw:1320, gh:660, sp:[528,0,264,330] },
     { g:"고기", name:"양고기 샤브샤브", zh:"羔羊肉卷", price:null, img:"img/hotpot-10.webp", gw:1320, gh:660, sp:[0,0,264,330] },
-    { g:"완자·어묵", name:"모듬완자", zh:"八珍玉食", price:null, img:"img/hotpot-10.webp", gw:1320, gh:660, sp:[792,330,264,330] },
+    { g:"완자·어묵", name:"모듬완자", zh:"八珍玉食", price:null, badge:"일시 품절 · 暂时缺货", img:"img/hotpot-10.webp", gw:1320, gh:660, sp:[792,330,264,330] },
     { g:"완자·어묵", name:"위왈", zh:"鱼丸", price:null, desc:"생선 완자", img:"img/hotpot-10.webp", gw:1320, gh:660, sp:[0,330,264,330] },
     { g:"완자·어묵", name:"머위왈", zh:"墨鱼丸", price:null, desc:"오징어 완자", img:"img/hotpot-10.webp", gw:1320, gh:660, sp:[792,0,264,330] },
     { g:"완자·어묵", name:"룽샤츄", zh:"龙虾球", price:null, img:"img/hotpot-10.webp", gw:1320, gh:660, sp:[1056,330,264,330] },
@@ -422,12 +427,159 @@ const CATEGORIES = [
 const won = n => n.toLocaleString("ko-KR") + "원";
 const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 let active = "all";
+let L = "ko";
+try{ const sl=localStorage.getItem("wm_lang"); if(sl==="zh"||sl==="ko") L=sl; else if(/^zh/i.test(navigator.language||"")) L="zh"; }catch(e){ if(/^zh/i.test(navigator.language||"")) L="zh"; }
+/* 중국어(간체) 번역: 한국어 → 中文 */
+const ZH = {"상품 사진을 누르면 맛·종류별로 더 많은 상품을 볼 수 있어요.":"点击商品图片，可以查看更多口味和种类。",
+  "사장 부재로 인해 10월 9일부터 11월 25일까지 포인트 적립은 가능하나, 포인트 사용은 불가능합니다.":"因店主不在，10月9日至11月25日期间可以积分，但不能使用积分。",
+  "매장과 홈페이지의 내용이 상이할 수 있으니 고려해 주시기 바랍니다.":"网站内容可能与店内实际情况不同，敬请谅解。",
+  "중국식품 · 원평동":"中国食品 · 院坪洞",
+  "중국식품과 동남아 식품을 주로 팔고 있는 매장입니다.":"本店主要销售中国食品和东南亚食品。",
+  "영업시간":"营业时间",
+  "평일":"周一至周五",
+  "주말":"周末",
+  "위챗 문의 · 微信":"微信咨询",
+  "아이디 복사":"复制微信号",
+  "네이버 지도":"Naver 地图",
+  "가격은 환율과 매장 사정에 따라 바뀔 수 있습니다. 재고는 위챗으로 문의해 주세요.":"价格可能因汇率和店内情况而变动。库存请通过微信咨询。",
+  "월드마트 중국식품 · 원평동 · 위챗 worldmart_hwan":"世界超市 中国食品 · 院坪洞 · 微信 worldmart_hwan",
+  "상품 검색 (예: 만두, 월병, 쌀)":"搜索商品（例：饺子、月饼、大米）",
+  "지금 영업 중":"营业中",
+  "영업 종료":"已打烊",
+  "위챗 아이디를 복사했습니다":"已复制微信号",
+  "아이디를 길게 눌러 복사하세요":"请长按微信号复制",
+  "전체":"全部",
+  "가격은 매장 문의":"价格请到店咨询",
+  "맛별 사진 보기 ›":"查看各口味图片 ›",
+  "사진 크게 보기 ›":"查看大图 ›",
+  "일시 품절 · 暂时缺货":"暂时缺货 · 일시 품절",
+  "추석":"中秋",
+  "추석 시즌 상품":"中秋节季节商品",
+  "하이디라오":"海底捞",
+  "하오런자":"好人家",
+  "더좡":"德庄",
+  "차오터우":"桥头",
+  "하이치왕":"海琦王",
+  "고기":"肉类",
+  "완자·어묵":"丸子·鱼糕",
+  "두부·새우":"豆腐·虾",
+  "냉면":"冷面",
+  "쒀좌빙":"手抓饼",
+  "꽃빵":"花卷",
+  "만토":"馒头",
+  "기타":"其他",
+  "누룽지":"锅巴",
+  "짼빙":"煎饼",
+  "빵":"面包·蛋糕",
+  "사치마":"沙琪玛",
+  "땅콩":"花生·豆类",
+  "깐왠":"甘源",
+  "과자":"饼干·膨化食品",
+  "라툐":"辣条",
+  "기타 간식":"其他零食",
+  "따바이투(토끼사탕)":"大白兔",
+  "춘광":"春光",
+  "사탕":"糖果",
+  "젤리":"软糖",
+  "산자·궈단피":"山楂·果丹皮",
+  "6종":"6种",
+  "3종":"3种",
+  "생선 완자":"鱼丸",
+  "오징어 완자":"墨鱼丸",
+  "언두부":"冻豆腐",
+  "냉동 새우":"冻虾",
+  "오인·흑깨·구기자·잣":"五仁·黑芝麻·枸杞·松子",
+  "260g: 오리지널·매운맛 / 168g: 산초·바비큐·가재·노른자":"260g：原味·香辣 / 168g：藤椒·烧烤·小龙虾·蛋黄",
+  "낱개 포장":"独立包装",
+  "14봉 들어 있음":"内含14小包",
+  "10봉 들어 있음":"内含10小包",
+  "팽이버섯 두부말이":"金针菇豆卷",
+  "면근 간식":"面筋零食",
+  "향라+바비큐맛":"香辣+烧烤味",
+  "진공 포장":"真空包装",
+  "산사 과일 롤":"山楂果卷",
+  "표고버섯":"香菇",
+  "셀러리":"芹菜",
+  "삼선":"三鲜",
+  "배추":"白菜",
+  "부추":"韭菜",
+  "산차이":"酸菜",
+  "양배추":"卷心菜",
+  "김치":"泡菜",
+  "무우":"萝卜",
+  "훈둔":"馄饨",
+  "계란부추":"韭菜鸡蛋",
+  "옥수수":"玉米",
+  "메밀":"荞麦",
+  "오인":"五仁",
+  "흑깨":"黑芝麻",
+  "팥":"红豆",
+  "장미":"玫瑰",
+  "산사":"山楂",
+  "헤이즐넛":"榛子",
+  "원향":"原香",
+  "카라멜":"焦糖",
+  "마라":"麻辣",
+  "오향":"五香",
+  "코코넛":"椰香",
+  "크림":"奶油",
+  "산호두":"山核桃",
+  "오리지널":"原味",
+  "매운맛":"香辣味",
+  "산초맛":"藤椒味",
+  "바비큐맛":"烧烤味",
+  "가재맛":"小龙虾味",
+  "노른자맛":"蛋黄味",
+  "달콤한맛":"甜味",
+  "라쓰 115g":"拉丝 115g",
+  "마리오 130g":"马里奥 130g",
+  "우유맛":"牛奶味",
+  "코코아맛":"可可味",
+  "망고맛":"芒果味",
+  "바나나맛 (품절 · 缺货)":"香蕉味（缺货 · 품절）",
+  "별 우유맛":"星星奶香味",
+  "찹쌀":"糯米",
+  "과일":"水果",
+  "두리안":"榴莲",
+  "아몬드":"杏仁",
+  "견과":"坚果",
+  "참깨맛":"芝麻味",
+  "흑설탕맛":"红糖味",
+  "계란맛":"鸡蛋味",
+  "기본맛":"原味",
+  "기본":"原味",
+  "오향맛":"五香味",
+  "마라맛":"麻辣味",
+  "즈란맛":"孜然味",
+  "란화떠우":"兰花豆",
+  "녹차화성":"茶香花生",
+  "등초맛":"藤椒味",
+  "오리지널(원향)":"原味",
+  "볶음 오향맛":"炒制五香味",
+  "마라맛 156g":"麻辣味 156g",
+  "마라맛 28g":"麻辣味 28g",
+  "향라맛 28g":"香辣味 28g",
+  "향라맛":"香辣味",
+  "마장맛":"麻酱味",
+  "라봉 (스틱)":"辣棒",
+  "라쓰 (가는 채)":"辣丝",
+  "라펜 (납작)":"辣片"};
+const tr = s => (L==="zh" && s!=null && ZH[s]!=null) ? ZH[s] : s;
+const nm = it => L==="zh" ? (it.zh||it.name) : it.name;
+function applyStatic(){
+  document.documentElement.lang = L==="zh" ? "zh-Hans" : "ko";
+  document.querySelectorAll(".notice p,.brand .sub,.tagline,.info .label,.hours dt,footer span,#copyPhone,.actions a.btn").forEach(el=>{ if(el.dataset.ko==null) el.dataset.ko=el.textContent; el.textContent=tr(el.dataset.ko); });
+  const qi=document.getElementById("q"); if(qi.dataset.ko==null) qi.dataset.ko=qi.placeholder; qi.placeholder=tr(qi.dataset.ko);
+  document.querySelectorAll(".lang button").forEach(b=>b.setAttribute("aria-pressed", String(b.dataset.lang===L)));
+}
+function setLang(l){ L=l; try{ localStorage.setItem("wm_lang", l); }catch(e){} applyStatic(); applyStatic(); renderChips(); render(); updateStatus(); }
+document.addEventListener("click", e=>{ const b=e.target.closest(".lang button"); if(b) setLang(b.dataset.lang); });
 let G = [];
 const GW = 900, GH = 507;
 
 function renderChips(){
   const total = CATEGORIES.reduce((a,c)=>a+c.items.length,0);
-  const all = [{id:"all",name:"전체",n:total}, ...CATEGORIES.map(c=>({id:c.id,name:c.name,n:c.items.length}))];
+  const all = [{id:"all",name:tr("전체"),n:total}, ...CATEGORIES.map(c=>({id:c.id,name:L==="zh"?(c.zh||c.name):c.name,n:c.items.length}))];
   document.getElementById("chips").innerHTML = all.map(c =>
     `<button class="chip" type="button" data-id="${c.id}" aria-pressed="${c.id===active}">${esc(c.name)}<span class="n">${c.n}</span></button>`
   ).join("");
@@ -435,18 +587,18 @@ function renderChips(){
 
 function card(it){
   const ph = it.sp ? `<div class="spr" style="${bgCrop(it, it.sp)}"></div>` : it.img ? `<img src="${esc(it.img)}" alt="${esc(it.name)}" loading="lazy" style="object-position:${esc(it.pos||'50% 50%')}">` : esc(it.zh || "");
-  const opts = it.opts ? `<div class="opts">${it.opts.map(o=>`<span>${esc(o)}</span>`).join("")}</div>` : "";
+  const opts = it.opts ? `<div class="opts">${it.opts.map(o=>`<span>${esc(tr(o))}</span>`).join("")}</div>` : "";
   const gi = (it.gallery || it.img) ? G.push(it) - 1 : -1;
-  const more = gi >= 0 ? `<span class="more">${it.gallery ? '맛별 사진 보기 ›' : '사진 크게 보기 ›'}</span>` : "";
+  const more = gi >= 0 ? `<span class="more">${it.gallery ? tr('맛별 사진 보기 ›') : tr('사진 크게 보기 ›')}</span>` : "";
   return `<div class="item${gi>=0?' has-g':''}"${gi>=0?` data-g="${gi}" role="button" tabindex="0"`:''}>
     <div class="ph" aria-hidden="${it.img?'false':'true'}">${ph}</div>
     <div class="meta">
-      ${it.badge?`<span class="badge">${esc(it.badge)}</span>`:""}
-      <span class="name">${esc(it.name)}</span>
-      ${it.desc?`<span class="desc">${esc(it.desc)}</span>`:""}
+      ${it.badge?`<span class="badge">${esc(tr(it.badge))}</span>`:""}
+      <span class="name">${esc(nm(it))}</span>${L==="zh"&&it.zh?`<span class="desc">${esc(it.name)}</span>`:""}
+      ${it.desc?`<span class="desc">${esc(tr(it.desc))}</span>`:""}
       ${opts}
       ${more}
-      <span class="price">${it.price!=null?won(it.price):'<span class="ask">가격은 매장 문의</span>'}</span>
+      <span class="price">${it.price!=null?won(it.price):'<span class="ask">'+tr('가격은 매장 문의')+'</span>'}</span>
     </div>
   </div>`;
 }
@@ -458,15 +610,15 @@ function render(){
   for (const c of CATEGORIES){
     if (active!=="all" && c.id!==active) continue;
     const items = c.items.filter(it => !q ||
-      [it.name,it.zh,it.desc,it.g,(it.opts||[]).join(" "),c.name].join(" ").toLowerCase().includes(q));
+      [it.name,it.zh,it.desc,it.g,(it.opts||[]).join(" "),c.name,c.zh,tr(it.g),tr(it.desc)].join(" ").toLowerCase().includes(q));
     if (!items.length) continue;
     out.push(`<section class="cat" id="${c.id}">
-      <div class="cat-head"><h2>${esc(c.name)}</h2><span class="zh">${esc(c.zh)}</span>
-      ${c.note?`<span class="note">${esc(c.note)}</span>`:""}</div>
-      <div class="grid">${items.map((it,i)=>(it.g && it.g!==(items[i-1]||{}).g ? `<h3 class="sub">${esc(it.g)}</h3>` : "")+card(it)).join("")}</div></section>`);
+      <div class="cat-head"><h2>${esc(L==="zh"?c.zh:c.name)}</h2><span class="zh">${esc(L==="zh"?c.name:c.zh)}</span>
+      ${c.note?`<span class="note">${esc(tr(c.note))}</span>`:""}</div>
+      <div class="grid">${items.map((it,i)=>(it.g && it.g!==(items[i-1]||{}).g ? `<h3 class="sub">${esc(tr(it.g))}</h3>` : "")+card(it)).join("")}</div></section>`);
   }
   document.getElementById("list").innerHTML = out.length ? out.join("")
-    : `<p class="empty">"${esc(q)}" 상품을 찾지 못했습니다.<br>위챗으로 문의해 주세요.</p>`;
+    : (L==="zh" ? `<p class="empty">没有找到“${esc(q)}”相关商品。<br>请通过微信咨询。</p>` : `<p class="empty">"${esc(q)}" 상품을 찾지 못했습니다.<br>위챗으로 문의해 주세요.</p>`);
 }
 
 document.getElementById("chips").addEventListener("click", e=>{
@@ -481,12 +633,12 @@ function bgCrop(it, r){
   return `background-image:url('${esc(it.img)}');background-size:${GW/w*100}% ${GH/h*100}%;background-position:${w>=GW?0:x/(GW-w)*100}% ${h>=GH?0:y/(GH-h)*100}%`;
 }
 function openG(it){
-  document.getElementById("mTitle").textContent = it.name + (it.price != null ? " · " + won(it.price) : "");
+  document.getElementById("mTitle").textContent = nm(it) + (it.price != null ? " · " + won(it.price) : "");
   const m = document.getElementById("mMain"); m.src = it.img; m.alt = it.name; m.hidden = !!it.sp;
   const tiles = it.gallery || (it.sp ? [{k:"", zh:"", r:it.sp, big:true}] : []);
   document.getElementById("mGrid").innerHTML = tiles.map(f => {
     const [x,y,w,h] = f.r;
-    const lab = f.big ? "" : `<b>${esc(f.k)}</b><span>${esc(f.zh)}</span>`;
+    const lab = f.big ? "" : (L==="zh" ? `<b>${esc(f.zh||tr(f.k))}</b><span>${esc(f.k)}</span>` : `<b>${esc(f.k)}</b><span>${esc(f.zh)}</span>`);
     return `<div class="flav"${f.big ? ' style="grid-column:1/-1"' : ''}><div class="crop" role="img" aria-label="${esc(f.k || it.name)}" style="aspect-ratio:${w}/${h};${bgCrop(it, f.r)}"></div>${lab}</div>`;
   }).join("");
   document.getElementById("modal").hidden = false;
@@ -507,7 +659,7 @@ function updateStatus(){
   const el = document.getElementById("status");
   const isOpen = m>=openAt && m<closeAt;
   el.className = "status " + (isOpen?"open":"closed");
-  el.textContent = isOpen ? "지금 영업 중" : "영업 종료";
+  el.textContent = tr(isOpen ? "지금 영업 중" : "영업 종료");
 }
 
 function toast(msg){
@@ -516,10 +668,10 @@ function toast(msg){
 }
 document.getElementById("copyPhone").addEventListener("click", ()=>{
   const num = "worldmart_hwan";
-  navigator.clipboard?.writeText(num).then(()=>toast("위챗 아이디를 복사했습니다"), ()=>{
+  navigator.clipboard?.writeText(num).then(()=>toast(tr("위챗 아이디를 복사했습니다")), ()=>{
     const r=document.createRange(); r.selectNodeContents(document.getElementById("phone"));
-    const s=getSelection(); s.removeAllRanges(); s.addRange(r); toast("아이디를 길게 눌러 복사하세요");
-  }) ?? toast("아이디를 길게 눌러 복사하세요");
+    const s=getSelection(); s.removeAllRanges(); s.addRange(r); toast(tr("아이디를 길게 눌러 복사하세요"));
+  }) ?? toast(tr("아이디를 길게 눌러 복사하세요"));
 });
 
 renderChips(); render(); updateStatus(); setInterval(updateStatus,60000);
