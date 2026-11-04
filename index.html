@@ -307,6 +307,11 @@ const CATEGORIES = [
     { name:"슈웨랏야르 프라이드 응아니투 매운맛", zh:"Shwe Latt Yar 炸红鱼 香辣味", vi:"Cá nhỏ chiên cay Shwe Latt Yar", th:"ปลาตัวเล็กทอดรสเผ็ด Shwe Latt Yar", price:null, img:"img/mm-new-24036.jpg" },
     { name:"슈웨랏야르 발라짜웅 매운맛", zh:"Shwe Latt Yar 缅甸发酵虾辣酱 香辣味", vi:"Balachaung cay Shwe Latt Yar", th:"บาลาชอง รสเผ็ด Shwe Latt Yar", price:null, img:"img/mm-new-24037.jpg" },
     { name:"미얀마 바야르쬬 150g", zh:"Bayar Kyaw 缅甸零食 150g", vi:"Bayar Kyaw Myanmar 150g", th:"บายาร์จอว์ เมียนมา 150 กรัม", price:null, img:"img/mm-new-24038.jpg" },
+    { name:"바세린 로션 400ml (미얀마 라벨)", zh:"凡士林润肤露 400ml（缅甸标签）", vi:"Sữa dưỡng thể Vaseline 400ml (nhãn tiếng Myanmar)", th:"โลชั่นวาสลีน 400 มล. (ฉลากภาษาพม่า)", price:null, img:"img/mm-new-24039.jpg" },
+    { name:"바세린 글루타-하이야 PDRN 로션", zh:"凡士林 Gluta-Hya PDRN 爆水精华身体乳", vi:"Sữa dưỡng thể Vaseline Gluta-Hya PDRN", th:"โลชั่น Vaseline Gluta-Hya PDRN", price:null, img:"img/mm-new-24040.jpg" },
+    { name:"바세린 글루타-하이야 플로리스 브라이트 로션", zh:"凡士林 Gluta-Hya Flawless Bright 身体乳", vi:"Sữa dưỡng thể Vaseline Gluta-Hya Flawless Bright", th:"โลชั่น Vaseline Gluta-Hya Flawless Bright", price:null, img:"img/mm-new-24041.jpg" },
+    { name:"바세린 글루타-하이야 프로 에이지 리스토어 로션", zh:"凡士林 Gluta-Hya Pro-Age Restore 身体乳", vi:"Sữa dưỡng thể Vaseline Gluta-Hya Pro-Age Restore", th:"โลชั่น Vaseline Gluta-Hya Pro-Age Restore", price:null, img:"img/mm-new-24042.jpg" },
+    { name:"바세린 글루타-하이야 듀이 래디언스 로션", zh:"凡士林 Gluta-Hya Dewy Radiance 身体乳", vi:"Sữa dưỡng thể Vaseline Gluta-Hya Dewy Radiance", th:"โลชั่น Vaseline Gluta-Hya Dewy Radiance", price:null, img:"img/mm-new-24043.jpg" },
   ]},
   { id:"yanbian", name:"냉동·냉장식품", zh:"冷冻·冷藏食品", items:[
     { g:"만두·셴빙", name:"희가득 물만두 600g", zh:"禧家德水饺", price:null, img:"img/heegadeuk-6.webp", gallery:[{k:"표고버섯",zh:"猪肉香菇",r:[325,235,325,235]},{k:"셀러리",zh:"猪肉芹菜",r:[0,0,305,240]},{k:"삼선",zh:"猪肉三鲜",r:[305,0,320,240]},{k:"배추",zh:"猪肉白菜",r:[610,0,290,215]},{k:"부추",zh:"猪肉韭菜",r:[0,245,330,250]},{k:"산차이",zh:"猪肉酸菜",r:[650,190,250,250]}], opts:["표고버섯","셀러리","삼선","배추","부추","산차이"], desc:"6종" },
@@ -1449,7 +1454,8 @@ const EN = {"단단 홍유 비현두반장 500g": "Dandan Red Oil Pixian Chili B
   "슈웨랏야르 발라짜웅 새콤매콤": "Shwe Latt Yar Balachaung Sour & Spicy",
   "슈웨랏야르 프라이드 응아니투 매운맛": "Shwe Latt Yar Fried Nga Ni Tu, Spicy",
   "슈웨랏야르 발라짜웅 매운맛": "Shwe Latt Yar Balachaung, Spicy",
-  "미얀마 바야르쬬 150g": "Myanmar Bayar Kyaw 150g"
+  "미얀마 바야르쬬 150g": "Myanmar Bayar Kyaw 150g",
+  "바세린 로션 400ml (미얀마 라벨)": "Vaseline Body Lotion 400ml (Myanmar Label)", "바세린 글루타-하이야 PDRN 로션": "Vaseline Gluta-Hya PDRN Serum Burst Lotion", "바세린 글루타-하이야 플로리스 브라이트 로션": "Vaseline Gluta-Hya Flawless Bright Serum Burst Lotion", "바세린 글루타-하이야 프로 에이지 리스토어 로션": "Vaseline Gluta-Hya Pro-Age Restore Serum Burst Lotion", "바세린 글루타-하이야 듀이 래디언스 로션": "Vaseline Gluta-Hya Dewy Radiance Serum Burst Lotion"
 };
 const tr = s => (L!=="ko" && s!=null && DICT[L] && DICT[L][s]!=null) ? DICT[L][s] : (L!=="ko" && L!=="zh" && s!=null && EN[s]!=null) ? EN[s] : s;
 const nm = it => L==="ko" ? it.name : L==="zh" ? (it.zh||it.name) : (L==="vi" && it.vi) ? it.vi : (L==="th" && it.th) ? it.th : (EN[it.name]||it.name);
