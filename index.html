@@ -294,6 +294,8 @@ html[lang="zh-Hans"] body{font-family:"PingFang SC","Microsoft YaHei","Noto Sans
    img: 나중에 사진 주소를 넣으면 자리표시 대신 사진이 나옵니다 */
 const CATEGORIES = [
   { id:"newcn", name:"신메뉴", zh:"新品", isNew:true, items:[
+    { name:"치즈스틱 과자", zh:"奶酪棒零食", vi:"Snack que phô mai", th:"ขนมแท่งชีส", price:null, img:"img/cn-24085.jpg" },
+    { name:"황라오우 매콤한 밀과자", zh:"黄老五香辣小麦锅巴", vi:"Bánh snack lúa mì cay Huang Laowu", th:"ขนมข้าวสาลีรสเผ็ด Huang Laowu", price:null, img:"img/cn-24087.jpg" }
   ]},
   { id:"newvn", name:"신메뉴", zh:"新品", isNew:true, country:"vn", items:[
   ]},
@@ -301,6 +303,8 @@ const CATEGORIES = [
   ]},
   { id:"newth", name:"신메뉴", zh:"新品", isNew:true, country:"th", items:[
     { name:"포야이 껍질째 튀긴 마늘 100g", zh:"Pho Yai 带皮炸蒜 100g", vi:"Tỏi chiên nguyên vỏ Pho Yai 100g", th:"กระเทียมทอดทั้งเปลือก Pho Yai 100 กรัม", price:null, desc:"할랄", img:"img/th-24082.jpg" },
+    { name:"테디베어 스위트&사워 타마린드 150g", zh:"Teddy Bear 酸甜罗望子 150g", vi:"Me chua ngọt Teddy Bear 150g", th:"มะขามหวานอมเปรี้ยว Teddy Bear 150 กรัม", price:null, img:"img/th-24083.jpg" },
+    { name:"테디베어 새콤달콤 타마린드 150g", zh:"Teddy Bear 甜酸罗望子 150g", vi:"Me sấy chua ngọt Teddy Bear 150g", th:"มะขามหวานอมเปรี้ยว Teddy Bear 150 กรัม", price:null, img:"img/th-24084.jpg" }
   ]},
   { id:"newmm", name:"신메뉴", zh:"新品", isNew:true, country:"mm", items:[
     { name:"미얀마 스낵 (노란 포장)", zh:"缅甸零食（黄色包装）", vi:"Snack Myanmar (gói vàng)", th:"ขนมเมียนมา (ซองสีเหลือง)", price:null, img:"img/mm-new-24034.jpg" },
@@ -855,6 +859,7 @@ const CATEGORIES = [
     { g:"설탕·밀가루", name:"곰표 밀가루 (중력)", zh:"熊牌 中筋面粉", price:null, opts:["2.5kg","1kg"], img:"img/kr-16.webp", gw:1800, gh:1800, sp:[1440,450,360,450], gallery:[{k:"2.5kg",zh:"2.5kg",r:[1440,450,360,450]},{k:"1kg",zh:"1kg",r:[0,900,360,450]}] },
     { g:"양념·조미료", name:"다시다 쇠고기", zh:"CJ 大喜大 牛肉味", price:null, desc:"조미료", opts:["300g","500g"], img:"img/kr-16.webp", gw:1800, gh:1800, sp:[360,900,360,450], gallery:[{k:"300g",zh:"300g",r:[360,900,360,450]},{k:"500g",zh:"500g",r:[720,900,360,450]}] },
     { g:"양념·조미료", name:"오뚜기 순후추", zh:"不倒翁 黑胡椒粉", price:null, opts:["45g (병)","50g (캔)","100g (캔)"], img:"img/kr-16.webp", gw:1800, gh:1800, sp:[1080,900,360,450], gallery:[{k:"45g (병)",zh:"45g",r:[1080,900,360,450]},{k:"50g (캔)",zh:"50g",r:[1440,900,360,450]},{k:"100g (캔)",zh:"100g",r:[0,1350,360,450]}] },
+    { name:"한국 곡물과자", zh:"韩国谷物脆 snack", vi:"Bánh ngũ cốc giòn Hàn Quốc", th:"ขนมธัญพืชกรอบเกาหลี", price:null, img:"img/kr-24086.jpg" }
   ]},
   { id:"liquor", name:"주류", zh:"酒类", country:"alc", note:"19세 미만 청소년에게는 주류를 판매하지 않습니다.", items:[
     { g:"맥주", name:"카스 후레쉬", zh:"Cass 啤酒", price:null, opts:["500ml×4캔","355ml×6캔"], img:"img/alc-24.webp", gw:1800, gh:2250, sp:[0,0,360,450], gallery:[{k:"500ml×4캔",zh:"500ml×4",r:[0,0,360,450]},{k:"355ml×6캔",zh:"355ml×6",r:[360,0,360,450]}] },
