@@ -369,6 +369,9 @@ const CATEGORIES = [
 
 
 
+      { name:"아메이 레차 미예익 새우젓 400g", zh:"Amay Letya 缅甸丹老虾酱 400克", vi:"Mắm tôm Myeik Amay Letya 400g", th:"กะปิ Myeik Amay Letya 400 กรัม", price:null, img:"img/mm-new-24818.jpg", addedAt:"2026-11-11T14:12:00+09:00" },
+    { name:"아메이 레차 미예익 새우젓 200g", zh:"Amay Letya 缅甸丹老虾酱 200克", vi:"Mắm tôm Myeik Amay Letya 200g", th:"กะปิ Myeik Amay Letya 200 กรัม", price:null, img:"img/mm-new-24819.jpg", addedAt:"2026-11-11T14:12:00+09:00" },
+    { name:"자얀 발효 찻잎", zh:"Zayan 缅甸发酵茶叶", vi:"Lá trà lên men Zayan Myanmar", th:"ใบชาหมัก Zayan เมียนมา", price:null, img:"img/mm-new-24820.jpg", addedAt:"2026-11-11T14:12:00+09:00" },
   ]},
   { id:"cosmetics", name:"화장품", zh:"化妆品", country:"cos", items:[
     { name:"바세린 로션 400ml (미얀마 라벨)", zh:"凡士林润肤露 400ml（缅甸标签）", vi:"Sữa dưỡng thể Vaseline 400ml (nhãn tiếng Myanmar)", th:"โลชั่นวาสลีน 400 มล. (ฉลากภาษาพม่า)", price:null, img:"img/mm-new-24039.jpg" },
@@ -1534,7 +1537,7 @@ const EN = {"포야이 껍질째 튀긴 마늘 100g":"Pho Yai Fried Garlic With 
   "슈웨랏야르 발라짜웅 매운맛": "Shwe Latt Yar Balachaung, Spicy",
   "미얀마 바야르쬬 150g": "Myanmar Bayar Kyaw 150g", "화장품": "Beauty & Personal Care", "샴푸": "Shampoo",
   "바세린 로션 400ml (미얀마 라벨)": "Vaseline Body Lotion 400ml (Myanmar Label)", "바세린 글루타-하이야 PDRN 로션": "Vaseline Gluta-Hya PDRN Serum Burst Lotion", "바세린 글루타-하이야 플로리스 브라이트 로션": "Vaseline Gluta-Hya Flawless Bright Serum Burst Lotion", "바세린 글루타-하이야 프로 에이지 리스토어 로션": "Vaseline Gluta-Hya Pro-Age Restore Serum Burst Lotion", "바세린 글루타-하이야 듀이 래디언스 로션": "Vaseline Gluta-Hya Dewy Radiance Serum Burst Lotion"
-};
+ , "아메이 레차 미예익 새우젓 400g":"Amay Letya Myeik Shrimp Paste 400g", "아메이 레차 미예익 새우젓 200g":"Amay Letya Myeik Shrimp Paste 200g", "자얀 발효 찻잎":"Zayan Fermented Tea Leaf" };
 const tr = s => (L!=="ko" && s!=null && DICT[L] && DICT[L][s]!=null) ? DICT[L][s] : (L!=="ko" && L!=="zh" && s!=null && EN[s]!=null) ? EN[s] : s;
 const nm = it => L==="ko" ? it.name : L==="zh" ? (it.zh||it.name) : (L==="vi" && it.vi) ? it.vi : (L==="th" && it.th) ? it.th : (EN[it.name]||it.name);
 function applyStatic(){
