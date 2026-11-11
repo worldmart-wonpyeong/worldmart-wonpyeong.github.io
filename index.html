@@ -294,6 +294,11 @@ html[lang="zh-Hans"] body{font-family:"PingFang SC","Microsoft YaHei","Noto Sans
    img: 나중에 사진 주소를 넣으면 자리표시 대신 사진이 나옵니다 */
 const CATEGORIES = [
   { id:"newcn", name:"신메뉴", zh:"新品", isNew:true, items:[
+    { name:"유천 러우쑹빙", zh:"友臣肉松饼", vi:"Bánh chà bông Youchen", th:"ขนมพายไส้หมูหย็อง Youchen", price:null, img:"img/cn-24821.jpg", addedAt:"2026-11-11T14:07:50+09:00" },
+    { name:"유천 김·육송빵 90g", zh:"友臣肉松海苔面包 90克", vi:"Bánh mì chà bông rong biển Youchen 90g", th:"ขนมปังหมูหย็องสาหร่าย Youchen 90 กรัม", price:null, img:"img/cn-24822.jpg", addedAt:"2026-11-11T14:07:50+09:00" },
+    { name:"유천 육송빵 50g", zh:"友臣肉松面包 50克", vi:"Bánh mì chà bông Youchen 50g", th:"ขนมปังหมูหย็อง Youchen 50 กรัม", price:null, img:"img/cn-24823.jpg", addedAt:"2026-11-11T14:07:50+09:00" },
+    { name:"미라오터우 짭짤한 치즈맛 쌀과자롤", zh:"米老头咸香芝士味夹心米果卷", vi:"Bánh gạo cuộn nhân vị phô mai mặn Milaitou", th:"ข้าวเกรียบม้วนไส้รสชีสรสเค็ม Milaitou", price:null, img:"img/cn-24824.jpg", addedAt:"2026-11-11T14:07:50+09:00" },
+    { name:"미라오터우 버터옥수수맛 쌀과자롤", zh:"米老头奶油玉米味夹心米果卷", vi:"Bánh gạo cuộn nhân vị bơ ngô Milaitou", th:"ข้าวเกรียบม้วนไส้รสเนยข้าวโพด Milaitou", price:null, img:"img/cn-24825.jpg", addedAt:"2026-11-11T14:07:50+09:00" },
     { name:"치즈스틱 과자", zh:"奶酪棒零食", vi:"Snack que phô mai", th:"ขนมแท่งชีส", price:null, img:"img/cn-24085.jpg", addedAt:"2026-11-04T16:14:46+09:00" },
     { name:"황라오우 매콤한 밀과자", zh:"黄老五香辣小麦锅巴", vi:"Bánh snack lúa mì cay Huang Laowu", th:"ขนมข้าวสาลีรสเผ็ด Huang Laowu", price:null, img:"img/cn-24087.jpg", addedAt:"2026-11-04T16:14:46+09:00" },
     { name:"황라오우 밀과자 오리지널 170g", zh:"黄老五小麦锅巴酥（原味）170g", vi:"Bánh snack lúa mì Huang Laowu vị nguyên bản 170g", th:"ขนมข้าวสาลี Huang Laowu รสดั้งเดิม 170 กรัม", price:null, img:"img/cn-24088.jpg", addedAt:"2026-11-04T16:14:46+09:00" },
@@ -343,12 +348,17 @@ const CATEGORIES = [
   { id:"newkh", name:"신메뉴", zh:"新品", isNew:true, country:"kh", items:[
   ]},
   { id:"newth", name:"신메뉴", zh:"新品", isNew:true, country:"th", items:[
+    { name:"로스디 똠얌꿍 수프 양념", zh:"RosDee 冬阴功汤调味料", vi:"Gia vị súp Tom Yum Kung RosDee", th:"รสดีเมนู ต้มยำกุ้ง", price:null, img:"img/th-24813.jpg", addedAt:"2026-11-11T14:07:50+09:00" },
+    { name:"로스디 랩(태국식 매콤 다진고기) 양념", zh:"RosDee 泰式辣拌肉调味料", vi:"Gia vị Larb thịt cay kiểu Thái RosDee", th:"รสดีเมนู ลาบ-น้ำตก", price:null, img:"img/th-24814.jpg", addedAt:"2026-11-11T14:07:50+09:00" },
+    { name:"로스디 얌운센 샐러드 양념 40g", zh:"RosDee 泰式凉拌粉丝调味料 40克", vi:"Gia vị salad miến Yum Woon Sen RosDee 40g", th:"รสดีเมนู น้ำยำ 40 กรัม", price:null, img:"img/th-24815.jpg", addedAt:"2026-11-11T14:07:50+09:00" },
+    { name:"로스디 카파오(태국 바질볶음) 양념", zh:"RosDee 泰式打抛炒菜调味料", vi:"Gia vị xào húng quế Ka Prao RosDee", th:"รสดีเมนู ผัดกะเพรา", price:null, img:"img/th-24816.jpg", addedAt:"2026-11-11T14:07:50+09:00" },
     { name:"포야이 껍질째 튀긴 마늘 100g", zh:"Pho Yai 带皮炸蒜 100g", vi:"Tỏi chiên nguyên vỏ Pho Yai 100g", th:"กระเทียมทอดทั้งเปลือก Pho Yai 100 กรัม", price:null, desc:"할랄", img:"img/th-24082.jpg", addedAt:"2026-11-04T16:14:46+09:00" },
     { name:"테디베어 스위트&사워 타마린드 150g", zh:"Teddy Bear 酸甜罗望子 150g", vi:"Me chua ngọt Teddy Bear 150g", th:"มะขามหวานอมเปรี้ยว Teddy Bear 150 กรัม", price:null, img:"img/th-24083.jpg", addedAt:"2026-11-04T16:14:46+09:00" },
     { name:"테디베어 새콤달콤 타마린드 150g", zh:"Teddy Bear 甜酸罗望子 150g", vi:"Me sấy chua ngọt Teddy Bear 150g", th:"มะขามหวานอมเปรี้ยว Teddy Bear 150 กรัม", price:null, img:"img/th-24084.jpg", addedAt:"2026-11-04T16:14:46+09:00" },
     { name:"락타소이 오리지널 두유 300ml", zh:"Lactasoy 原味豆奶 300ml", vi:"Sữa đậu nành nguyên vị Lactasoy 300ml", th:"แลคตาซอย นมถั่วเหลือง รสดั้งเดิม 300 มล.", price:null, img:"img/th-24100.jpg", addedAt:"2026-11-04T16:14:46+09:00" }
   ]},
   { id:"newmm", name:"신메뉴", zh:"新品", isNew:true, country:"mm", items:[
+    { name:"레디 미얀마 생선볶음 커리 통조림", zh:"READY 缅甸炒鱼咖喱罐头", vi:"Cà ri cá xào đóng hộp READY kiểu Myanmar", th:"แกงปลาผัดกระป๋อง READY แบบเมียนมา", price:null, img:"img/mm-24817.jpg", addedAt:"2026-11-11T14:07:50+09:00" },
     { name:"미얀마 스낵 (노란 포장)", zh:"缅甸零食（黄色包装）", vi:"Snack Myanmar (gói vàng)", th:"ขนมเมียนมา (ซองสีเหลือง)", price:null, img:"img/mm-new-24034.jpg", addedAt:"2026-11-04T16:14:46+09:00" },
     { name:"슈웨랏야르 발라짜웅 새콤매콤", zh:"Shwe Latt Yar 缅甸发酵虾辣酱 酸辣味", vi:"Balachaung chua cay Shwe Latt Yar", th:"บาลาชอง รสเปรี้ยวเผ็ด Shwe Latt Yar", price:null, img:"img/mm-new-24035.jpg", addedAt:"2026-11-04T16:14:46+09:00" },
     { name:"슈웨랏야르 프라이드 응아니투 매운맛", zh:"Shwe Latt Yar 炸红鱼 香辣味", vi:"Cá nhỏ chiên cay Shwe Latt Yar", th:"ปลาตัวเล็กทอดรสเผ็ด Shwe Latt Yar", price:null, img:"img/mm-new-24036.jpg", addedAt:"2026-11-04T16:14:46+09:00" },
