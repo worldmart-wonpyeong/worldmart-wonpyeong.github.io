@@ -294,6 +294,10 @@ html[lang="zh-Hans"] body{font-family:"PingFang SC","Microsoft YaHei","Noto Sans
    img: 나중에 사진 주소를 넣으면 자리표시 대신 사진이 나옵니다 */
 const CATEGORIES = [
   { id:"newcn", name:"신메뉴", zh:"新品", isNew:true, items:[
+    { name:"오향 차예단 550g (고형량 250g)", zh:"茶叶蛋 五香味 净含量550克（固形物250克）", vi:"Trứng trà ngũ vị 550g (khối lượng cái 250g)", th:"ไข่ต้มชา 5 เครื่องเทศ 550 กรัม (เนื้อไข่ 250 กรัม)", price:null, img:"img/cn-new-24857.jpg", addedAt:"2026-11-11T19:07:30+09:00" },
+    { name:"향라 차예단 550g (고형량 250g)", zh:"茶叶蛋 香辣味 净含量550克（固形物250克）", vi:"Trứng trà cay thơm 550g (khối lượng cái 250g)", th:"ไข่ต้มชารสเผ็ดหอม 550 กรัม (เนื้อไข่ 250 กรัม)", price:null, img:"img/cn-new-24858.jpg", addedAt:"2026-11-11T19:07:30+09:00" },
+    { name:"메이룽 99 미정(조미료) 1kg", zh:"梅花 99味精 1千克", vi:"Bột ngọt Mei Long 99% 1kg", th:"ผงชูรส Mei Long 99% 1 กก.", price:null, img:"img/cn-new-24854.jpg", addedAt:"2026-11-11T19:07:30+09:00" },
+
     { name:"송화피단 378g", zh:"松花皮蛋 378克", vi:"Trứng bắc thảo 378g", th:"ไข่เยี่ยวม้า 378 กรัม", price:null, img:"img/cn-new-24827.jpg", addedAt:"2026-11-11T17:04:00+09:00" },
     { name:"이홍 설화산사채 360g", zh:"亿红 雪花山楂丝 360克", vi:"Mứt sợi táo gai tuyết Yihong 360g", th:"แถบซานจาเสวี่ยฮวา Yihong 360 กรัม", price:null, img:"img/cn-new-24828.jpg", addedAt:"2026-11-11T17:04:00+09:00" },
     { name:"라오베이징 이팔장 참깨땅콩소스 420g", zh:"老北京二八酱 芝麻花生酱 420克", vi:"Sốt mè đậu phộng Erbajiang Bắc Kinh 420g", th:"ซอสงาถั่วลิสง เอ้อร์ปาเจี้ยง ปักกิ่ง 420 กรัม", price:null, img:"img/cn-new-24829.jpg", addedAt:"2026-11-11T17:04:00+09:00" },
@@ -1544,7 +1548,7 @@ const EN = {"포야이 껍질째 튀긴 마늘 100g":"Pho Yai Fried Garlic With 
   "슈웨랏야르 발라짜웅 매운맛": "Shwe Latt Yar Balachaung, Spicy",
   "미얀마 바야르쬬 150g": "Myanmar Bayar Kyaw 150g", "화장품": "Beauty & Personal Care", "샴푸": "Shampoo",
   "바세린 로션 400ml (미얀마 라벨)": "Vaseline Body Lotion 400ml (Myanmar Label)", "바세린 글루타-하이야 PDRN 로션": "Vaseline Gluta-Hya PDRN Serum Burst Lotion", "바세린 글루타-하이야 플로리스 브라이트 로션": "Vaseline Gluta-Hya Flawless Bright Serum Burst Lotion", "바세린 글루타-하이야 프로 에이지 리스토어 로션": "Vaseline Gluta-Hya Pro-Age Restore Serum Burst Lotion", "바세린 글루타-하이야 듀이 래디언스 로션": "Vaseline Gluta-Hya Dewy Radiance Serum Burst Lotion"
- , "아메이 레차 미예익 새우젓 400g":"Amay Letya Myeik Shrimp Paste 400g", "아메이 레차 미예익 새우젓 200g":"Amay Letya Myeik Shrimp Paste 200g", "자얀 발효 찻잎":"Zayan Fermented Tea Leaf"  , "마장웨이 지단과자 300g":"Ma Jiang Wei Egg Yolk Mochi Cake 300g"  , "송화피단 378g":"Preserved Duck Eggs 378g", "이홍 설화산사채 360g":"Yihong Snowflake Hawthorn Strips 360g", "라오베이징 이팔장 참깨땅콩소스 420g":"Lao Beijing Erbajiang Sesame Peanut Sauce 420g", "류비쥐 순참깨장 420g":"Liubiju Pure Sesame Paste 420g" };
+ , "아메이 레차 미예익 새우젓 400g":"Amay Letya Myeik Shrimp Paste 400g", "아메이 레차 미예익 새우젓 200g":"Amay Letya Myeik Shrimp Paste 200g", "자얀 발효 찻잎":"Zayan Fermented Tea Leaf"  , "마장웨이 지단과자 300g":"Ma Jiang Wei Egg Yolk Mochi Cake 300g"  , "송화피단 378g":"Preserved Duck Eggs 378g", "이홍 설화산사채 360g":"Yihong Snowflake Hawthorn Strips 360g", "라오베이징 이팔장 참깨땅콩소스 420g":"Lao Beijing Erbajiang Sesame Peanut Sauce 420g", "류비쥐 순참깨장 420g":"Liubiju Pure Sesame Paste 420g"  , "오향 차예단 550g (고형량 250g)":"Five-Spice Tea Eggs 550g (250g solid)", "향라 차예단 550g (고형량 250g)":"Spicy Tea Eggs 550g (250g solid)", "메이룽 99 미정(조미료) 1kg":"Mei Long 99% MSG 1kg" };
 const tr = s => (L!=="ko" && s!=null && DICT[L] && DICT[L][s]!=null) ? DICT[L][s] : (L!=="ko" && L!=="zh" && s!=null && EN[s]!=null) ? EN[s] : s;
 const nm = it => L==="ko" ? it.name : L==="zh" ? (it.zh||it.name) : (L==="vi" && it.vi) ? it.vi : (L==="th" && it.th) ? it.th : (EN[it.name]||it.name);
 function applyStatic(){
